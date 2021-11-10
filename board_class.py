@@ -27,24 +27,43 @@ locations = {
     'x': 23,
 }
 
+icons = {
+    3: '3',
+    2: 'O',
+    1: 'o',
+    0: ' ',
+    -1: 'x',
+    -2: 'X',
+    -3: '3'
+}
+
 class Board:
     def __init__(self):
         # Sets up board in starting position
+        
         self.board = [2, 0, 0, 0 , 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2]
 
     def print_board(self):
         # Prints the current state of the board to the console in text based fomat, seperating the two lines
-        for i in range(12):
-            print(self.board[i], end = ' ')
-        print()
-        for i in range(12):
-            print(self.board[23-i], end = ' ')
-        print()
         
+        print('abcdefghijkl')
+        for i in range(5):
+            for j in range (12):
+                print(icons[int(round((abs(self.board[j])+2-i)/5))*int(self.board[j]/(abs(self.board[j])-0.01))], end='')
+            print()
+        print()
+        for i in range(5):
+            for j in range (12):
+                print(icons[int(round((abs(self.board[23-j])-2+i)/5))*int(self.board[23-j]/(abs(self.board[23-j])-0.01))], end='')
+            print()
+        print('xwvutsrqponm')
+        
+    
     def make_move(self, player):
         # Updates the board based on the player's move
+        
         for move in player.counter_moves:
             # For all of the moves changes the numbe of counters in the location the move comes from and goes to
             self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
-            self.board[locations[move[0]]+player.number*int(move[1:])] = self.board[locations[move[0]]+player.number*int(move[1:])] + player.number
+            self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
             
