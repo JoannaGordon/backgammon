@@ -1,8 +1,8 @@
-
+# player_classes.py
 
 class Player:
-    def __init__(self):
-        self.name = "player"
+    def __init__(self, number):
+        self.number = number
     
     
 class Human(Player):
