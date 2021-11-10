@@ -12,9 +12,9 @@ class Board:
         print()
         for i in range(12):
             print(self.board[23-i], end = ' ')
-            
+        print()    
             
 test_game = Board()
 test_game.print_board()
 
-game1 = Board()
+print(test_game.board)
