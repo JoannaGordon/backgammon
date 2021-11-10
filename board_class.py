@@ -12,9 +12,7 @@ class Board:
         print()
         for i in range(12):
             print(self.board[23-i], end = ' ')
-        print()    
-            
-test_game = Board()
-test_game.print_board()
-
-print(test_game.board)
+        print()
+        
+    def make_move(self, counter_moves):
+        pass
