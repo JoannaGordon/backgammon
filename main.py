@@ -4,8 +4,8 @@ from player_classes import *
 def main():
     board = Board()
     
-    player1 = Human()
-    player2 = Human()
+    player1 = Human(1)
+    player2 = Human(-1)
     
     players = [player1, player2]
     players_turn = 0
@@ -15,7 +15,7 @@ def main():
         
         players[players_turn].set_move()
         
-        board.make_move(players[players_turn].counter_moves)
+        board.make_move(players[players_turn])
         
         players_turn = (players_turn + 1) % 2
         
