@@ -9,5 +9,4 @@ class Human(Player):
     def set_move(self):
         move = input('Enter your move: ')
         
-        self.counter_moves = move.split()
-        
+        self.checkers_moves = move.split()

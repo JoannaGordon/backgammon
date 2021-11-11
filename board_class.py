@@ -62,7 +62,7 @@ class Board:
     def make_move(self, player):
         # Updates the board based on the player's move
         
-        for move in player.counter_moves:
+        for move in player.checkers_moves:
             # For all of the moves changes the numbe of counters in the location the move comes from and goes to
             self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
             self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
