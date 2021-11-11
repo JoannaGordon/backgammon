@@ -1,5 +1,9 @@
+# main.py
+
 from board_class import *
 from player_classes import *
+
+import random as rand
 
 def main():
     board = Board()
@@ -13,6 +17,8 @@ def main():
     while not win():
         board.print_board()
         
+        roll = dice_roll()
+        
         players[players_turn].set_move()
         
         board.make_move(players[players_turn])
@@ -22,6 +28,9 @@ def main():
 
 def win():
     return False
+    
+def dice_roll():
+    return [rand.randint(1, 6), rand.randint(1,6)]
     
 if __name__ == "__main__":
     main()
