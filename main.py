@@ -19,7 +19,7 @@ def main():
         
         roll = dice_roll()
         
-        players[players_turn].set_move()
+        players[players_turn].set_move(board.board, roll)
         
         board.make_move(players[players_turn])
         

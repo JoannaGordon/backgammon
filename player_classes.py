@@ -6,7 +6,7 @@ class Player:
     
     
 class Human(Player):
-    def set_move(self):
+    def set_move(self, board, roll):
         move = input('Enter your move: ')
         
         self.checkers_moves = move.split()
