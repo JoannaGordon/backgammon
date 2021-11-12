@@ -44,20 +44,24 @@ class Human(Player):
         if self.input_wrong(move):
             print('You have inputted your move in the wrong format please write the letter that coresponds to the location of the checker you want to move followed by the number of spaces you want to move it, repeating this for each of the checkers you want to move with a space between each. If you are removing checkers only include the letter location without a number')
             return False
-        if self.too_many_moves(move, roll):
-            print('You have input too many moves for the roll')
+        if self.no_checker(board, move):
+            print('There are not checkers in the locations of all the moves you have input')
+            return False
+        if self.wrong_moves(move, roll):
+            print('You cannot move your checkers that number of spaces')
             return False
         if self.wrong_total_moves(move, roll):
             print('The total mnumber of spaces you are moving the checkers is incorrect for the dice roll')
             return False
         return True
         
-        # check if len(checkers_moves) > 4
+        # check if correct number of moves
         # check if first element of string is a letter between a and x 
         # check if this is followed by a number or no number
         # check that number fits with the roll
         # check there is the correct number of moves for the roll (fit this in with the first point)
-        # check the total moves is correct for the roll    
+        # check the total moves is correct for the roll
+        # check there are counters in the location inputted
         
     def input_wrong(self, move):
         checkers_moves = move.split()
@@ -73,12 +77,29 @@ class Human(Player):
                     return True        
         return False
         
+    def no_checker(self, board, move):
+        checkers_moves = move.split()
+        for move in checkers_moves:
+            if board[locations[move[0]]]*self.number < 1:
+                return True
+        return False
+        
+    '''  
     def too_many_moves(self, move, roll):
         if roll[0] == roll[1]:
             if len(move.split()) > 4:
                 return True
         else:
             if len(move.split()) > 2:
+                return True
+        return False
+    '''
+    
+    def wrong_moves(self, move, roll):
+        # need to adjust this for the removing checkers phase
+        checkers_moves = move.split()
+        for move in checkers_moves:
+            if int(move[1:]) != roll[0] and int(move[1:]) != roll[1] and int(move[1:]) != roll[0]+roll[1] and int(move[1:]) != roll[0]*2+roll[1] and (roll[0]+roll[1])*2:
                 return True
         return False
         
