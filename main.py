@@ -18,6 +18,7 @@ def main():
         board.print_board()
         
         roll = dice_roll()
+        print('The dice roll is: ' + str(roll[0]) + ' and ' + str(roll[1]))
         
         players[players_turn].set_move(board.board, roll)
         
