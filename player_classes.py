@@ -53,6 +53,9 @@ class Human(Player):
         if self.wrong_total_moves(move, roll):
             print('The total mnumber of spaces you are moving the checkers is incorrect for the dice roll')
             return False
+        if self.cant_land(board, move):
+            print('Your checker can\'t land there')
+            return False
         return True
         
         # check if correct number of moves
@@ -62,6 +65,13 @@ class Human(Player):
         # check there is the correct number of moves for the roll (fit this in with the first point)
         # check the total moves is correct for the roll
         # check there are counters in the location inputted
+        
+        # check if there isn't an available move
+        # check if the move uses more than one dice roll that the counter can do the inbetween step
+        # declare which attempted move failed
+        
+        # should the input method be changed to input your moves indiviudally only not all together
+        
         
     def input_wrong(self, move):
         checkers_moves = move.split()
@@ -116,3 +126,11 @@ class Human(Player):
             if total != roll[0]+roll[1]:
                 return True
         return False
+        
+    def cant_land(self, board, move):
+        checkers_moves = move.split()
+        for move in checkers_moves:
+            if board[locations[move[0]] + self.number*int(move[1:])]*self.number < -1:
+                return True
+        return False
+            
