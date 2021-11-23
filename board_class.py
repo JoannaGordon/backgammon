@@ -55,7 +55,7 @@ class Board:
         for i in range(5):
             print(icons[int(round((abs(self.board[24])-2+i)/5))*int(self.board[24]/(abs(self.board[24])-0.01))], end='')
         for i in range(5):
-            print(icons[int(round((abs(self.board[25])-2+i)/5))*int(self.board[25]/(abs(self.board[25])-0.01))], end='')
+            print(icons[int(round((abs(self.board[25])+2-i)/5))*int(self.board[25]/(abs(self.board[25])-0.01))], end='')
         print('\n')
         for i in range(5):
             for j in range (12):
@@ -72,7 +72,7 @@ class Board:
             self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
             if self.board[locations[move[0]] + player.number*int(move[1:])]*player.number == -1:
                 self.board[locations[move[0]] + player.number*int(move[1:])] = player.number
-                self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] + 1
+                self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] - player.number
             else:
                 self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
                 
