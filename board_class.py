@@ -41,7 +41,7 @@ class Board:
     def __init__(self):
         # Sets up board in starting position
         
-        self.board = [2, 0, 0, 0 , 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2]
+        self.board = [2, 0, 0, 0 , 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0, 0]
 
     def print_board(self):
         # Prints the current state of the board to the console in text based fomat, seperating the two lines
@@ -65,5 +65,10 @@ class Board:
         for move in player.checkers_moves:
             # For all of the moves changes the numbe of counters in the location the move comes from and goes to
             self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
-            self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
+            if self.board[locations[move[0]] + player.number*int(move[1:])]*player.number == -1:
+                self.board[locations[move[0]] + player.number*int(move[1:])] = player.number
+                self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] + 1
+            else:
+                self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
+                
             
