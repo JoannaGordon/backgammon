@@ -51,7 +51,12 @@ class Board:
             for j in range (12):
                 print(icons[int(round((abs(self.board[j])+2-i)/5))*int(self.board[j]/(abs(self.board[j])-0.01))], end='')
             print()
-        print()
+        print('\n ', end='')
+        for i in range(5):
+            print(icons[int(round((abs(self.board[24])-2+i)/5))*int(self.board[24]/(abs(self.board[24])-0.01))], end='')
+        for i in range(5):
+            print(icons[int(round((abs(self.board[25])-2+i)/5))*int(self.board[25]/(abs(self.board[25])-0.01))], end='')
+        print('\n')
         for i in range(5):
             for j in range (12):
                 print(icons[int(round((abs(self.board[23-j])-2+i)/5))*int(self.board[23-j]/(abs(self.board[23-j])-0.01))], end='')
