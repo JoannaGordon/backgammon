@@ -68,12 +68,20 @@ class Board:
         # Updates the board based on the player's move
         
         for move in player.checkers_moves:
-            # For all of the moves changes the numbe of counters in the location the move comes from and goes to
-            self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
-            if self.board[locations[move[0]] + player.number*int(move[1:])]*player.number == -1:
-                self.board[locations[move[0]] + player.number*int(move[1:])] = player.number
+            if len(move) == 1:
                 self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] - player.number
+                if self.board[locations[move]]*player.number == -1:
+                    self.board[locations[move]] = player.number
+                    self.board[int(24.5 - player.number/2)] = self.board[int(24.5 - player.number/2)] - player.number
+                else:
+                    self.board[locations[move]] = self.board[locations[move]] + player.number
             else:
-                self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
-                
+                # For all of the moves changes the number of counters in the location the move comes from and goes to
+                self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
+                if self.board[locations[move[0]] + player.number*int(move[1:])]*player.number == -1:
+                    self.board[locations[move[0]] + player.number*int(move[1:])] = player.number
+                    self.board[int(24.5 - player.number/2)] = self.board[int(24.5 - player.number/2)] - player.number
+                else:
+                    self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
+                    
             
