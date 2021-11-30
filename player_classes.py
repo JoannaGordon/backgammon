@@ -104,12 +104,12 @@ class Human(Player):
                 return True
         return False
     '''
-    
+
     def wrong_moves(self, move, roll):
         # need to adjust this for the removing checkers phase
         checkers_moves = move.split()
         for move in checkers_moves:
-            if int(move[1:]) != roll[0] and int(move[1:]) != roll[1] and int(move[1:]) != roll[0]+roll[1] and int(move[1:]) != roll[0]*2+roll[1] and (roll[0]+roll[1])*2:
+            if int(move[1:]) != roll[0] and int(move[1:]) != roll[1] and int(move[1:]) != roll[0]+roll[1] and int(move[1:]) != roll[0]*2+roll[1] and int(move[1:]) != (roll[0]+roll[1])*2:
                 return True
         return False
         
@@ -131,6 +131,8 @@ class Human(Player):
         checkers_moves = move.split()
         for move in checkers_moves:
             if board[locations[move[0]] + self.number*int(move[1:])]*self.number < -1:
+                return True
+            if locations[move[0]] + int(move[1:]) < 0 or locations[move[0]] + int(move[1:]) > 23:
                 return True
         return False
             
