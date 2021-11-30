@@ -69,10 +69,10 @@ class Board:
         
         for move in player.checkers_moves:
             if len(move) == 1:
-                self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] - player.number
+                self.board[int(24.5 - player.number/2)] = self.board[int(24.5 - player.number/2)] - player.number
                 if self.board[locations[move]]*player.number == -1:
                     self.board[locations[move]] = player.number
-                    self.board[int(24.5 - player.number/2)] = self.board[int(24.5 - player.number/2)] - player.number
+                    self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] - player.number
                 else:
                     self.board[locations[move]] = self.board[locations[move]] + player.number
             else:
@@ -80,7 +80,7 @@ class Board:
                 self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
                 if self.board[locations[move[0]] + player.number*int(move[1:])]*player.number == -1:
                     self.board[locations[move[0]] + player.number*int(move[1:])] = player.number
-                    self.board[int(24.5 - player.number/2)] = self.board[int(24.5 - player.number/2)] - player.number
+                    self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] - player.number
                 else:
                     self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
                     
