@@ -132,7 +132,7 @@ class Human(Player):
         for move in checkers_moves:
             if board[locations[move[0]] + self.number*int(move[1:])]*self.number < -1:
                 return True
-            if locations[move[0]] + int(move[1:])*player.number < 0 or locations[move[0]] + int(move[1:])*player.number > 23:
+            if locations[move[0]] + int(move[1:])*self.number < 0 or locations[move[0]] + int(move[1:])*self.number > 23:
                 return True
         return False
             
