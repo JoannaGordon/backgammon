@@ -44,19 +44,13 @@ class Human(Player):
         if self.input_wrong(move):
             print('You have inputted your move in the wrong format please write the letter that coresponds to the location of the checker you want to move followed by the number of spaces you want to move it, repeating this for each of the checkers you want to move with a space between each. If you are removing checkers only include the letter location without a number')
             return False
-        if self.no_checker(board, move):
-            print('There are not checkers in the locations of all the moves you have input')
-            return False
-        if self.wrong_moves(move, roll):
-            print('You cannot move your checkers that number of spaces')
-            return False
-        if self.wrong_total_moves(move, roll):
-            print('The total mnumber of spaces you are moving the checkers is incorrect for the dice roll')
-            return False
-        if self.cant_land(board, move):
-            print('Your checker can\'t land there')
-            return False
-        return True
+        if board[int(24.5-0.5*self.number)] != 0:
+            return valid_checkers_in_bar()
+        else if all(space*self.number <= 0 for space in board[(2.5-2.5*self.number):(20.5-self.number*2.5)]):
+            return valid_remove_checkers()
+        else:
+            return valid_normal_move()
+    
         
         # check if correct number of moves
         # check if first element of string is a letter between a and x 
@@ -72,6 +66,7 @@ class Human(Player):
         
         # should the input method be changed to input your moves indiviudally only not all together
         
+        # I think the structure needs to be changed, first work out if the move type is right then check the moves themselves
         
     def input_wrong(self, move):
         checkers_moves = move.split()
@@ -86,6 +81,28 @@ class Human(Player):
                 except:
                     return True        
         return False
+        
+    def valid_checkers_in_bar():
+        
+        return True
+        
+    def valid_remove_checkers():
+        return True
+        
+    def valid_normal_move():
+        if self.no_checker(board, move):
+            print('There are not checkers in the locations of all the moves you have input')
+            return False
+        if self.wrong_moves(move, roll):
+            print('You cannot move your checkers that number of spaces')
+            return False
+        if self.wrong_total_moves(move, roll):
+            print('The total mnumber of spaces you are moving the checkers is incorrect for the dice roll')
+            return False
+        if self.cant_land(board, move):
+            print('Your checker can\'t land there')
+            return False
+        return True
         
     def no_checker(self, board, move):
         checkers_moves = move.split()
