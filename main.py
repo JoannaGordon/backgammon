@@ -5,6 +5,16 @@ from player_classes import *
 
 import random as rand
 
+icons = {
+    3: '3',
+    2: 'O',
+    1: 'o',
+    0: ' ',
+    -1: 'x',
+    -2: 'X',
+    -3: '3'
+}
+
 def main():
     board = Board()
     
@@ -18,11 +28,15 @@ def main():
         board.print_board()
         
         roll = dice_roll()
+        print('It\'s player ' + icons[players[players_turn].number] + '\'s turn')
         print('The dice roll is: ' + str(roll[0]) + ' and ' + str(roll[1]))
+        
+        #moves = players[players_turn].get_valid_moves(board.board, roll)
+        #print(moves)
         
         players[players_turn].set_move(board.board, roll)
         
-        board.make_move(players[players_turn])
+        board.make_move(players[players_turn].checkers_moves, players[players_turn].number)
         
         players_turn = (players_turn + 1) % 2
         

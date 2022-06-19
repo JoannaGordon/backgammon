@@ -38,10 +38,10 @@ icons = {
 }
 
 class Board:
-    def __init__(self):
+    def __init__(self, board = [2, 0, 0, 0 , 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0, 0]):
         # Sets up board in starting position
         
-        self.board = [2, 0, 0, 0 , 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0, 0]
+        self.board = board
 
     def print_board(self):
         # Prints the current state of the board to the console in text based fomat, seperating the two lines
@@ -64,24 +64,24 @@ class Board:
         print('xwvutsrqponm')
         
     
-    def make_move(self, player):
+    def make_move(self, moves, player_number):
         # Updates the board based on the player's move
         
-        for move in player.checkers_moves:
+        for move in moves:
             if len(move) == 1:
-                self.board[int(24.5 - player.number/2)] = self.board[int(24.5 - player.number/2)] - player.number
-                if self.board[locations[move]]*player.number == -1:
-                    self.board[locations[move]] = player.number
-                    self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] - player.number
+                self.board[int(24.5 - player_number/2)] = self.board[int(24.5 - player_number/2)] - player_number
+                if self.board[locations[move]]*player_number == -1:
+                    self.board[locations[move]] = player_number
+                    self.board[int(24.5 + player_number/2)] = self.board[int(24.5 + player_number/2)] - player_number
                 else:
-                    self.board[locations[move]] = self.board[locations[move]] + player.number
+                    self.board[locations[move]] = self.board[locations[move]] + player_number
             else:
                 # For all of the moves changes the number of counters in the location the move comes from and goes to
-                self.board[locations[move[0]]] = self.board[locations[move[0]]] - player.number
-                if self.board[locations[move[0]] + player.number*int(move[1:])]*player.number == -1:
-                    self.board[locations[move[0]] + player.number*int(move[1:])] = player.number
-                    self.board[int(24.5 + player.number/2)] = self.board[int(24.5 + player.number/2)] - player.number
+                self.board[locations[move[0]]] = self.board[locations[move[0]]] - player_number
+                if self.board[locations[move[0]] + player_number*int(move[1:])]*player_number == -1:
+                    self.board[locations[move[0]] + player_number*int(move[1:])] = player_number
+                    self.board[int(24.5 + player_number/2)] = self.board[int(24.5 + player_number/2)] - player_number
                 else:
-                    self.board[locations[move[0]] + player.number*int(move[1:])] = self.board[locations[move[0]] + player.number*int(move[1:])] + player.number
+                    self.board[locations[move[0]] + player_number*int(move[1:])] = self.board[locations[move[0]] + player_number*int(move[1:])] + player_number
                     
             
