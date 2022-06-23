@@ -46,6 +46,7 @@ class Player:
         
         all_valid_moves = []            
         max_move_len = 0
+        highest_dice_used = 0
         
         # loops through the combinations of moves generating valid moves in 
         #   each case and combining into a single list
@@ -58,15 +59,18 @@ class Player:
             if board[int(24.5-0.5*self.number)] != 0: # need to place a checker case
                 if board[int(11.5-11.5*self.number+(movement-1)*self.number)]*self.number >= -1:
                     valid_moves.append([letters[int(11.5-11.5*self.number+(movement-1)*self.number)], self.get_updated_board(board[:], letters[int(11.5-11.5*self.number+(movement-1)*self.number)])])
+                    highest_dice_used = self.check_highest_dice_used(highest_dice_used, movement)
             elif all(space*self.number <= 0 for space in board[int(2.5-2.5*self.number):int(20.5-self.number*2.5)]): # need to remove a checker case
                 if board[int((11.5+11.5*self.number)-(movement-1)*self.number)]*self.number > 0:
                     valid_moves.append([letters[int(11.5+11.5*self.number-(movement-1)*self.number)], self.get_updated_board(board[:], letters[int(11.5+11.5*self.number-(movement-1)*self.number)])])
+                    highest_dice_used = self.check_highest_dice_used(highest_dice_used, movement)
             else: # normal move case
                 for space in range(24):
                     if board[space]*self.number > 0:
                         if space+movement*self.number >= 0 and space+movement*self.number <= 23:
                             if board[space+movement*self.number]*self.number >= -1:
                                 valid_moves.append([letters[space]+str(movement), self.get_updated_board(board[:], letters[space]+str(movement))])
+                                highest_dice_used = self.check_highest_dice_used(highest_dice_used, movement)
             
             # repeates the process to add to the list moves using the later
             #   moves in the combination in conjunction with earlier moves
@@ -75,15 +79,18 @@ class Player:
                     if valid_moves[i][1][int(24.5-0.5*self.number)] != 0:
                         if valid_moves[i][1][int(11.5-11.5*self.number+(movement-1)*self.number)]*self.number >= -1:
                             valid_moves.append([valid_moves[i][0] + ' ' + letters[int(11.5-11.5*self.number+(movement-1)*self.number)], self.get_updated_board(valid_moves[i][1][:], letters[int(11.5-11.5*self.number+(movement-1)*self.number)])])
+                            highest_dice_used = self.check_highest_dice_used(highest_dice_used, movement)
                     elif all(space*self.number <= 0 for space in valid_moves[i][1][int(2.5-2.5*self.number):int(20.5-self.number*2.5)]): # need to remove a checker case
                         if valid_moves[i][1][(11.5+11.5*self.number)-(movement-1)*self.number]*self.number > 0:
                             valid_moves.append([valid_moves[i][0] + ' ' + letters[int(11.5-11.5*self.number+(movement-1)*self.number)], self.get_updated_board(valid_moves[i][1][:], letters[int(11.5-11.5*self.number+(movement-1)*self.number)])])
+                            highest_dice_used = self.check_highest_dice_used(highest_dice_used, movement)
                     else: # normal move case
                         for space in range(24):
                             if valid_moves[i][1][space]*self.number > 0:
                                 if space+movement*self.number >= 0 and space+movement*self.number <= 23:
                                     if valid_moves[i][1][space+movement*self.number]*self.number >= -1 :
                                         valid_moves.append([valid_moves[i][0] + ' ' + letters[space]+str(movement), self.get_updated_board(valid_moves[i][1][:], letters[space]+str(movement))])
+                                        highest_dice_used = self.check_highest_dice_used(highest_dice_used, movement)
 
             # adds the valid moves from this iteration to the complete list and
             # determines the maximum number of moves it's possible to use
@@ -93,10 +100,12 @@ class Player:
                     max_move_len = len(valid_move[0])
          
         # creates a new list of moves that only uses the maximum number of moves
+        #   or the highest number dice
         final_valid_moves = []
         for valid_move in all_valid_moves:
             if len(valid_move) == max_move_len:
-                final_valid_moves.append(valid_move)
+                if str(highest_dice_used) in valid_move or letters[highest_dice_used-1] in valid_move or letters[24-highest_dice_used] in valid_move:
+                    final_valid_moves.append(valid_move)
         
         # need to add a way to capture a case where only one dice can be used 
         #   then the higher must be used if possible
@@ -122,6 +131,12 @@ class Player:
                 board[locations[move[0]] + self.number*int(move[1:])] = board[locations[move[0]] + self.number*int(move[1:])] + self.number
  
         return board
+        
+    def check_highest_dice_used(self, highest_dice_used, movement):
+        if movement > highest_dice_used:
+            highest_dice_used = movement
+        return highest_dice_used
+        
     
 class Human(Player):
     def set_move(self, board, roll):
