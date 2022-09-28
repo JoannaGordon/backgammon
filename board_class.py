@@ -84,4 +84,8 @@ class Board:
                 else:
                     self.board[locations[move[0]] + player_number*int(move[1:])] = self.board[locations[move[0]] + player_number*int(move[1:])] + player_number
                     
-            
+    def check_win(self, player_number):
+        if all(space*player_number < 1 for space in self.board):
+            return True
+        else:
+            return False

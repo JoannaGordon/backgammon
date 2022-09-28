@@ -2,6 +2,8 @@
 
 from board_class import *
 
+import random as rand
+
 locations = {
     'a': 0, 
     'b': 1,
@@ -106,9 +108,6 @@ class Player:
             if len(valid_move) == max_move_len:
                 if str(highest_dice_used) in valid_move or letters[highest_dice_used-1] in valid_move or letters[24-highest_dice_used] in valid_move:
                     final_valid_moves.append(valid_move)
-        
-        # need to add a way to capture a case where only one dice can be used 
-        #   then the higher must be used if possible
             
         return final_valid_moves
         
@@ -140,14 +139,22 @@ class Player:
     
 class Human(Player):
     def set_move(self, board, roll):
-        move = input('Enter your move: ')
-        #while not self.valid_move(board, move, roll):
         valid_moves = self.get_valid_moves(board, roll)
-        print(valid_moves)
-        while move not in valid_moves:
-            move = input('Enter your move: ')
         
-        self.checkers_moves = move.split()
+        if valid_moves == []:
+            print('No available moves')
+            self.checkers_moves = []
+        else:
+            move = input('Enter your move: ')
+            #while not self.valid_move(board, move, roll):
+            while move not in valid_moves:
+                move = input('Enter your move: ')
+            
+            self.checkers_moves = move.split()
+        
+        # would be good to add back in a way to tell the user that there move 
+        #   is in the wrong format or not a valid one
+        
     '''
     
     def valid_move(self, board, move, roll):
@@ -266,3 +273,15 @@ class Human(Player):
                 return True
         return False
     '''        
+    
+ 
+class Random(Player):
+    def set_move(self, board, roll):
+        valid_moves = self.get_valid_moves(board, roll)
+        
+        if valid_moves == []:
+            self.checkers_moves = []
+        else:
+            move = valid_moves[rand.randint(0, len(valid_moves)-1)]
+            
+            self.checkers_moves = move.split()
